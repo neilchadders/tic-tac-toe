@@ -21,7 +21,11 @@ function startGame() {
 	
 	for (var i = 0; i<cells.length; i++){
 		cells[i].innerText = '';
-		cells[i].removeProperty('background-color');
+		cells[i].style.removeProperty('background-color');
 		cells[i].addEventListener('click', turnClick, false);
 	}
+}
+
+function turnClick(square) {
+	console.log(square.target.id)
 }

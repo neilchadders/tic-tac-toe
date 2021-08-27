@@ -12,7 +12,9 @@ const winCombos = [
 [6,4,2]
 ]
 
-const cells = document.querySelectorAll('.cell');
+const cells = document.querySelectorAll('.cell'); // Creates an arrau of the cells//Scope
+
+
 startGame();
 
 function startGame() {
@@ -26,6 +28,14 @@ function startGame() {
 	}
 }
 
+
 function turnClick(square) {
-	console.log(square.target.id)
+	turn(square.target.id, huPlayer)
+}
+
+
+
+function turn (squareId, player) {
+	origBoard[squareId] = player;
+	document.getElementById(squareId).innerText =player;
 }

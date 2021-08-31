@@ -12,7 +12,7 @@ const winCombos = [
 [6,4,2]
 ]
 
-const cells = document.querySelectorAll('.cell'); // Creates an arrau of the cells//Scope
+const cells = document.querySelectorAll('.cell'); // Creates an array of the cells//Scope
 
 
 startGame();
@@ -24,7 +24,7 @@ function startGame() {
 	for (var i = 0; i<cells.length; i++){
 		cells[i].innerText = '';
 		cells[i].style.removeProperty('background-color');
-		cells[i].addEventListener('click', turnClick, false);
+		cells[i].addEventListener('click', turnClick, false); //false here refers to useCapture - not needed in modern browsers and would normally always be false anyway- don't worry about it
 	}
 }
 
@@ -38,4 +38,6 @@ function turnClick(square) {
 function turn (squareId, player) {
 	origBoard[squareId] = player;
 	document.getElementById(squareId).innerText =player;
+	let gameWon = checkWin(origBoard, player)
+	if (gameWon)
 }

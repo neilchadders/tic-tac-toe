@@ -39,5 +39,18 @@ function turn (squareId, player) {
 	origBoard[squareId] = player;
 	document.getElementById(squareId).innerText =player;
 	let gameWon = checkWin(origBoard, player)
-	if (gameWon)
+	if (gameWon) gameOver(gameWon)
+}
+
+function checkWin(board,player){
+	let plays = board.reduce((a,e,i)=> //Reduce method will go through the board array and give one value.
+										//a = accumulator, e = element in board array that we are going through
+										// i = index
+										//Goes through cells that have already been played in
+
+		(e = player)) ? a.concat(i) : a,[];
+	let gameWon = null;
+	for (let [index,win] of winCombos.entries()){  //index and win gives the index and winning array of winCombos
+		if (win.every(elem => plays.indexOf(elem > -1)))
+	}
 }

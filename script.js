@@ -12,14 +12,14 @@ const winCombos = [
 [6,4,2]
 ]
 
-const cells = document.querySelectorAll('.cell'); // Creates an array of the cells//Scope
+const cells = document.querySelectorAll('.cell'); // Creates an array of the cells//remember scope
 
 
 startGame();
 
 function startGame() {
 	document.querySelector(".endgame").style.display = "none";
-	origBoard = Array.from(Array(9).keys()) //This creates an array with the numbers 1-8
+	origBoard = Array.from(Array(9).keys()) //This creates an array with the numbers 0-8
 	
 	for (var i = 0; i<cells.length; i++){
 		cells[i].innerText = '';
@@ -27,6 +27,14 @@ function startGame() {
 		cells[i].addEventListener('click', turnClick, false); //false here refers to useCapture - not needed in modern browsers and would normally always be false anyway- don't worry about it
 	}
 }
+
+/* 	1) StartGame() selects the endgame element and set display to none.
+	2) OrigBoard set to an array of 0-8
+	3) Loops through the cells array and sets each index to an empty string,
+	removes the background property colour and adds event listener which triggers
+	turnClick() */
+
+
 
 
 function turnClick(square) {
@@ -43,14 +51,20 @@ function turn (squareId, player) {
 }
 
 function checkWin(board,player){
-	let plays = board.reduce((a,e,i)=> //Reduce method will go through the board array and give one value.
-										//a = accumulator, e = element in board array that we are going through
-										// i = index
-										//Goes through cells that have already been played in
+	let plays = board.reduce((a,e,i)=> // see notes on reduce below
 
-		(e = player)) ? a.concat(i) : a,[];
+		(e === player)) ? a.concat(i) : a,[]);
 	let gameWon = null;
 	for (let [index,win] of winCombos.entries()){  //index and win gives the index and winning array of winCombos
-		if (win.every(elem => plays.indexOf(elem > -1)))
+		if (win.every(elem => plays.indexOf(elem > -1)) {
+			gameWon = {index: index, player:player};
+			break;
+			})
+		}
+		return gameWon;
 	}
-}
+
+//Reduce method will go through the board array and give one value.
+//a = accumulator, e = element in board array that we are going through
+// i = index
+//Goes through cells that have already been played in

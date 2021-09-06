@@ -31,8 +31,9 @@ function startGame() {
 /* 	1) StartGame() selects the endgame element and set display to none.
 	2) OrigBoard set to an array of 0-8
 	3) Loops through the cells array and sets each index to an empty string,
-	removes the background property colour and adds event listener which triggers
-	turnClick() */
+	removes the background property colour - essentially makes the cell blank for the start of the game
+	4) Finally, and adds event listener which triggers
+	turnClick() function. */
 
 
 
@@ -41,6 +42,10 @@ function turnClick(square) {
 	turn(square.target.id, huPlayer)
 }
 
+/* The square argument is just the click event and so square.target.id is the square that's clicked on
+
+Also, the reason turnClick calls the turn function and we dont just go from startGame function 
+to the turn() function is that turn function cam be called eitheby human playe or AI player*/ 
 
 
 function turn (squareId, player) {
@@ -64,7 +69,7 @@ function checkWin(board,player){
 		return gameWon;
 	}
 
-//Reduce method will go through the board array and give one value.
-//a = accumulator, e = element in board array that we are going through
-// i = index
-//Goes through cells that have already been played in
+/*Reduce method will go through the board array and give one value.
+a = accumulator, e = element in board array that we are going through
+i = index goes through cells that have already been played in*/
+

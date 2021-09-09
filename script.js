@@ -45,7 +45,8 @@ function turnClick(square) {
 /* The square argument is just the click event and so square.target.id is the square that's clicked on
 
 Also, the reason turnClick calls the turn function and we dont just go from startGame function 
-to the turn() function is that turn function cam be called eitheby human playe or AI player*/ 
+to the turn() function is that turn function cam be called either by human playe or AI player 
+*/ 
 
 
 function turn (squareId, player) {
@@ -54,6 +55,17 @@ function turn (squareId, player) {
 	let gameWon = checkWin(origBoard, player)
 	if (gameWon) gameOver(gameWon)
 }
+
+/*	squareId == square.target.id and player == huPlayer / aiPlayer
+  
+  	origBoard[squareId] = player; - locates the square clicked on - origBoard is an array + squareId == index;
+	document.getElementById(squareId).innerText =player; --- changes the html to O (huPlayer) or X (ai);
+
+	
+	let gameWon = checkWin(origBoard, player) - on each turn checks if a win by calling checkWin function
+	if (gameWon) gameOver(gameWon) - then calls this funcion
+
+	*/
 
 function checkWin(board,player){
 	let plays = board.reduce((a,e,i)=> // see notes on reduce below

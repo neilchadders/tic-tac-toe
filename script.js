@@ -68,20 +68,27 @@ function turn (squareId, player) {
 	*/
 
 function checkWin(board,player){
-	let plays = board.reduce((a,e,i)=> // see notes on reduce below
+	let plays = board.reduce((a,e,i) =>
+		(e===player)) ? a.concat(i) : a,[])
 
-		(e === player)) ? a.concat(i) : a,[]);
-	let gameWon = null;
-	for (let [index,win] of winCombos.entries()){  //index and win gives the index and winning array of winCombos
-		if (win.every(elem => plays.indexOf(elem > -1)) {
-			gameWon = {index: index, player:player};
-			break;
-			})
-		}
-		return gameWon;
-	}
+}
 
-/*Reduce method will go through the board array and give one value.
-a = accumulator, e = element in board array that we are going through
-i = index goes through cells that have already been played in*/
+/* checkWin(board,player) - board refers to origBoard but not stating origBoard as later on this
+function will take board arguments that are different versions of current origBoard 
+
+let plays = board.reduce((a,e,i)=> 
+(e === player)) ? a.concat(i) : a,[]);  /// this section of code tells us which squares have been played in
+
+
+Reduce method will go through each element of the the board array and give one value.
+a = accumulator. The single value we will get at the end, initialised to an empty array
+e = element in board array that we are going through
+i = index goes through cells that have already been played in
+
+(e === player)) ? a.concat(i) : a,[]) - IF e is the player then index is added to the accumulator array,
+if e is NOT the player then just the accumulator is returned
+
+*/
+
+
 

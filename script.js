@@ -67,10 +67,13 @@ function turn (squareId, player) {
 
 	*/
 
-function checkWin(board,player){
+function checkWin(board,player) {
 	let plays = board.reduce((a,e,i) =>
-		(e===player)) ? a.concat(i) : a,[])
+		(e === player)) ? a.concat(i) : a, []);
+		let gameWon = null;
+		for (let [index, win] of winCombos.entries()){
 
+		}
 }
 
 /* checkWin(board,player) - board refers to origBoard but not stating origBoard as later on this
@@ -87,6 +90,10 @@ i = index goes through cells that have already been played in
 
 (e === player)) ? a.concat(i) : a,[]) - IF e is the player then index is added to the accumulator array,
 if e is NOT the player then just the accumulator is returned
+
+LOOP = for (let [index, win] of winCombos.entries())
+This will loop through winCombos and .entries() will give index and value(ie the win combo as an array iterator)
+
 
 */
 

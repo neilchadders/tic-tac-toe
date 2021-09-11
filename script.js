@@ -72,8 +72,12 @@ function checkWin(board,player) {
 		(e === player)) ? a.concat(i) : a, []);
 		let gameWon = null;
 		for (let [index, win] of winCombos.entries()){
-
-		}
+			if (win.every(elem => plays.indexOf(elem > -1)) {
+			gameWon = {index: index, player: player};
+			break;
+		})
+		return gameWon;
+}
 }
 
 /* checkWin(board,player) - board refers to origBoard but not stating origBoard as later on this
@@ -88,11 +92,23 @@ a = accumulator. The single value we will get at the end, initialised to an empt
 e = element in board array that we are going through
 i = index goes through cells that have already been played in
 
-(e === player)) ? a.concat(i) : a,[]) - IF e is the player then index is added to the accumulator array,
+(e === player)) ? a.concat(i) : a,[]) 
+- IF e is the player then index is added to the accumulator array,
 if e is NOT the player then just the accumulator is returned
 
-LOOP = for (let [index, win] of winCombos.entries())
-This will loop through winCombos and .entries() will give index and value(ie the win combo as an array iterator)
+for (let [index, win] of winCombos.entries())
+- This will loop through winCombos and .entries() will give both an index and value(ie the win combo as an array iterator)
+
+if (win.every(elem => plays.indexOf(elem > -1))) 
+- This part of the code tells you if the player has played on each part of the board that would count as a win
+
+- Goes through each element of win  - ie the winCombo array that wins
+
+- nb array.indexOf() - goes through an array and returns position of what is passed in. 
+Returns -1 if not there
+
+=> plays.indexOf(elem > -1))) - this part then checks all the places that the player has played in,
+to see if they are greater than -1 - remember array.indexOf() will retrn -1 if the value passed in is not in the array
 
 
 */

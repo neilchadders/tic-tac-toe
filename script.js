@@ -39,13 +39,20 @@ function startGame() {
 
 
 function turnClick(square) {
-	turn(square.target.id, huPlayer)
+	if (typeof origBoard[square.target.id] == 'number') {
+		turn(square.target.id, huPlayer)
+		if (!checkTie()) turn(bestSpot(), aiPlayer);
+	}
 }
-
 /* The square argument is just the click event and so square.target.id is the square that's clicked on
 
 Also, the reason turnClick calls the turn function and we dont just go from startGame function 
 to the turn() function is that turn function cam be called either by human playe or AI player 
+
+
+if (typeof origBoard[square.target.id] == 'number')  - remember that origboard is an array of numbers and that
+the payers are either X or O - so if square.target.id = 'number' it means square not clicked on
+
 */ 
 
 
@@ -69,15 +76,16 @@ function turn (squareId, player) {
 
 function checkWin(board,player) {
 	let plays = board.reduce((a,e,i) =>
-		(e === player)) ? a.concat(i) : a, []);
+		(e === player) ? a.concat(i) : a, []);
 		let gameWon = null;
 		for (let [index, win] of winCombos.entries()){
-			if (win.every(elem => plays.indexOf(elem > -1)) {
+			if (win.every(elem => plays.indexOf(elem) > -1)) {
 			gameWon = {index: index, player: player};
 			break;
-		})
+		}
+	}
 		return gameWon;
-}
+
 }
 
 /* checkWin(board,player) - board refers to origBoard but not stating origBoard as later on this
@@ -113,5 +121,54 @@ to see if they are greater than -1 - remember array.indexOf() will retrn -1 if t
 
 */
 
+function gameOver(gameWon) {
+	for (let index of winCombos[gameWon.index]) {
+		document.getElementById(index).style.backgroundColor =
+			gameWon.player == huPlayer ? "blue" : "red";
+	}
+	for (var i = 0; i < cells.length; i++) {
+		cells[i].removeEventListener('click', turnClick, false);
+	}
+	declareWinner(gameWon.player == huPlayer ? "You win!" : "You lose.");
+}
 
 
+/*
+
+ function gameOver(gameWon)  =gameWon is from checkWin() function  see -- gameWon = {index: index, player: player};
+
+ So we have two for loops - 
+ 1) highlights all the squares that are part of the winning combination.
+ 2) We want to ensure user cannot click any more squares because game is over
+
+for (let index of winCombos[gameWon.index]) - we are going to ge through every index of the win combo
+then add the winners colour		
+
+ */
+
+
+
+function declareWinner(who) {
+	document.querySelector(".endgame").style.display = "block";
+	document.querySelector(".endgame .text").innerText = who;
+}
+
+function emptySquares() {
+	return origBoard.filter(s => typeof s == 'number');
+}
+
+function bestSpot() {
+	return emptySquares()[0];
+}
+
+function checkTie() {
+	if (emptySquares().length == 0) {
+		for (var i = 0; i < cells.length; i++) {
+			cells[i].style.backgroundColor = "green";
+			cells[i].removeEventListener('click', turnClick, false);
+		}
+		declareWinner("Tie Game!")
+		return true;
+	}
+	return false;
+}
